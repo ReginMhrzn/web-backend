@@ -11,7 +11,11 @@ export type StoredUser = {
   createdAt: string;
 };
 
-const DATA_DIR = path.join(process.cwd(), 'CLIENTS DATA');
+// Locally: project folder. On Vercel: /tmp is the only writable location.
+const DATA_DIR =
+  process.env.VERCEL === '1'
+    ? '/tmp'
+    : path.join(process.cwd(), 'CLIENTS DATA');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
 
 function ensureFile() {
